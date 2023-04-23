@@ -7,11 +7,19 @@ $max-page-width: 1920px;
 
 html,
 body {
+    // height: 100%;
     font: 16px/1.5;
     margin: 0 auto;
     font-family: 'Inter', sans-serif;
     font-family: 'Quicksand', sans-serif;
     font-family: 'Red Hat Display', sans-serif;
+    font-family: 'Roboto', sans-serif;
+
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 ul, ul li {
@@ -134,6 +142,8 @@ main {
     max-width: 1493px;
     margin: 2rem auto 0;
     display: flex;
+    height: auto;
+    min-height: 80vh;
 }
 
 .categories {
@@ -169,7 +179,23 @@ main {
         letter-spacing: 0.0275em;
         color: $body-text;
         padding: 6px 0;
+        text-transform: capitalize;
     }
+}
+
+.active {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: $main-text;
+    letter-spacing: 0.75px;
+    text-transform: capitalize;
+
+    background: #EBF2FF;
+    border-radius: 4px;
+    padding: 6px 12px;
 }
 
 section {
@@ -182,7 +208,7 @@ section {
     margin: 0 1.5rem;
     gap: 1rem;
     min-width: 1114px;
-    min-height: 1612px;
+    height: auto;
 }
 
 .product {
@@ -337,4 +363,55 @@ section {
 
 .none {
     display: none;
+}
+
+.modal-container {
+    position: fixed;
+    height: 700px;
+    width: 700px;
+    top: 250px;
+    left: 800px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 20px;
+    color: #1B1D1F;
+    cursor: pointer;
+    border: 0;
+    background: none;
+}
+
+.modal-product {
+    display: flex;
+    flex-direction: row;
+    
+    &__title {
+
+    }
+
+    &__price {
+
+    }
+
+    &__descr {
+
+    }
+
+    &__rating {
+
+        &__img {
+
+        }
+
+        &__numb {
+
+        }
+    }
+
+    &__btn {
+
+    }
 }
