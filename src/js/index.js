@@ -3,6 +3,10 @@ import "../styles/styles.scss"
 import starHalf from "../public/images/star-half.png"
 import star from "../public/images/star.png"
 
+import requestProduct from "./product_view.js"
+
+import {preloaderRemove, preloaderAdd} from "./preloader.js"
+
 const content = document.querySelector("#products");
 
 function createProduct(product) {
@@ -56,7 +60,7 @@ function createProduct(product) {
   productBtn.classList = "product__btn button";
   productRating.appendChild(productBtn);
 
-// Заполнение контантом 
+// Заполнение контентом 
   productTitle.innerHTML = product.title.slice(0,20) + '...';
   productPrice.innerHTML = '$' + product.price;
   productDescr.innerHTML = product.description.slice(0,20) + '...';
@@ -67,8 +71,14 @@ function createProduct(product) {
 
   return div;
 }
-// Обозначение загрузки
-const preloader = document.querySelector(".preloader");
+
+// Нажимаем на кнопку Watch
+content.addEventListener('click', (e) => {
+  if (e.target.hasAttribute('data-index') == false) {
+    return;
+  }
+  requestProduct(e.target.dataset.index);
+})
 
 const urlProducts = decodeURIComponent(window.location.hash.substring(1));
 selectCategories(urlProducts);
@@ -102,7 +112,7 @@ fetch('https://fakestoreapi.com/products/categories')
       const categoriesLi = categoriesAdd(data[i]);
       categoriesСontent.appendChild(categoriesLi);
     }
-    preloader.classList.add('none');
+    preloaderRemove();
     const link = categoriesСontent.querySelector(`[data-category="${urlProducts}"]`);
     if (link !== null) {
       setActiveMenuLink(link);
@@ -152,7 +162,7 @@ function selectCategories(categ) {
 
 // Запрос на сервер по выбранной категории
 function requestProducts(url) {
-  preloader.classList.remove('none');
+  preloaderAdd();
   fetch(url)
   .then(function (response) {
     return response.json()
@@ -165,9 +175,9 @@ function requestProducts(url) {
       const productDiv = createProduct(data[i]);
       content.appendChild(productDiv);
     }
-    preloader.classList.add('none');
+    preloaderRemove();
   })
   .catch(function (error) {
-    console.log('Что-то пошло не так22', error);
+    console.log('Что-то пошло не так', error);
   })
 }
