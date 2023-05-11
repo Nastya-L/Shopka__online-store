@@ -1,7 +1,7 @@
 import '../styles/styles.scss';
 
-import starHalf from '../public/images/star-half.png';
-import star from '../public/images/star.png';
+import createRatingImg from "./rating"
+import * as endpoint from "./api_endpoints.js"
 
 // Модальное окно, информация о товаре
 const modal = document.querySelector('.modal');
@@ -76,16 +76,7 @@ function createModal() {
 }
 
 function fillModal(product) {
-  // Заполнение контентом
-  for (let i = 0; i < product.rating.rate; i += 1) {
-    const image = document.createElement('img');
-    if ((product.rating.rate - i) < 1) {
-      image.src = starHalf;
-    } else {
-      image.src = star;
-    }
-    modalRatingImg.appendChild(image);
-  }
+  createRatingImg(product.rating.rate, modalRatingImg);
   imgModal.src = product.image;
   modalTitle.innerHTML = product.title;
   modalPrice.innerHTML = `$${product.price}`;
@@ -108,7 +99,7 @@ export default function requestProduct(index) {
   const modalWindow = createModal();
   modal.appendChild(modalWindow);
 
-  const url = `https://fakestoreapi.com/products/${index}`;
+  const url = `${endpoint.routeProducts}${index}`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => setTimeout(fillModal, 1000, data)) // Чтобы показать Прелоадер

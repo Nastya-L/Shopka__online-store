@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack serve",
+    "build:prod": "webpack --env production",
+    "build:dev": "webpack --env development",
     "lint:js": "eslint ./src --ext .js",
     "lint:scss": "stylelint \"src/**/*.scss\"",
     "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix"
@@ -17,6 +19,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.5",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
