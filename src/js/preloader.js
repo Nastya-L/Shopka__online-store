@@ -1,7 +1,7 @@
-import "../styles/styles.scss"
+import '../styles/styles.scss';
 
 // Обозначение загрузки
-const preloader = document.querySelector(".preloader");
+const preloader = document.querySelector('.preloader');
 
 export const preloaderRemove = () => preloader.classList.add('none');
 

@@ -2,22 +2,14 @@ $main-text: #2264D1;
 $body-text: #19191D;
 $primary-color: #787885;
 $sort-color: #5A5B6A;
-$rating-color:#5E6366;
+$rating-color: #5E6366;
 $max-page-width: 1920px;
 
 html,
 body {
     font: 16px/1.5;
     margin: 0 auto;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Quicksand', sans-serif;
-    font-family: 'Red Hat Display', sans-serif;
-    font-family: 'Roboto', sans-serif;
-
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    -webkit-user-select: none;
+    font-family: Inter, Quicksand, Roboto, sans-serif;
     user-select: none;
 }
 
@@ -26,13 +18,17 @@ ul, ul li {
     padding: 0;
     margin: 0;
 }
-a, a:link, a:visited  {
+
+a,
+a:link,
+a:visited {
     text-decoration: none;
 }
 
 a:hover  {
     text-decoration: none;
 }
+
 p {
     margin: 0;
 }
@@ -41,10 +37,9 @@ img {
     pointer-events: none;
 }
 
-/*header*/
+/* header */
 
 .header {
-
     &__content {
         max-width: $max-page-width;
         display: grid;
@@ -70,10 +65,40 @@ img {
             box-shadow: 00 2px 4px #2979FF, 00 4px 8px #1B4EA3;
         }
     }
+
+    &__form {
+        display: flex;
+        align-items: center;
+    
+        &__input {
+            padding: 0.5rem;
+            border-radius: 99px;
+            border-color: #EDEDF0;
+            background: #EDEDF0;
+            background-image: url("../public/images/search.png");
+            background-position: 8px 8px;
+            background-repeat: no-repeat;
+            padding-left: 2.75rem;
+            width: 670px;
+            border: none;
+            font-family: Inter, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1.25rem;
+            line-height: 158%;
+            letter-spacing: 0.0075em;
+            color: $body-text;
+        }
+    
+        &__input:focus {
+            border-color: #EDEDF0;
+            background: #EDEDF0;
+        }
+    }
 }
 
 .button {
-    font-family: 'Quicksand';
+    font-family: Quicksand, sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 1.25rem;
@@ -96,7 +121,7 @@ img {
 
     &__link {
         padding: 0.375rem 1rem;
-        font-family: 'Inter';
+        font-family: Inter, sans-serif;
         font-style: normal;
         font-weight: 500;
         font-size: 1.25rem;
@@ -109,37 +134,7 @@ img {
     font-weight: 400;
 }
 
-.header__form {
-    display: flex;
-    align-items: center;
-
-    &__input {
-        padding: 0.5rem;
-        border-radius: 99px;
-        border-color: #EDEDF0;
-        background: #EDEDF0;
-        background-image: url(../public/images/search.png);
-        background-position: 8px 8px;
-        background-repeat: no-repeat;
-        padding-left: 2.75rem;
-        width: 670px;
-        border: none;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 1.25rem;
-        line-height: 158%;
-        letter-spacing: 0.0075em;
-        color: $body-text;
-    }
-
-    &__input:focus {
-        border-color: #EDEDF0;
-        background: #EDEDF0;
-    }
-}
-
-/*main*/
+/* main */
 
 main {
     max-width: 1493px;
@@ -153,14 +148,14 @@ main {
     margin-top: 2.5rem;
 
     &__btn {
-        background: #FFFFFF;
+        background: #FFF;
         border: 1px solid #9DC2FF;
         border-radius: 8px;
-        background-image: url(../public/images/filter-variant.png);
+        background-image: url("../public/images/filter-variant.png");
         background-position: 8px 8px;
         background-repeat: no-repeat;
         padding: 0.5rem 1.25rem 0.5rem 3.25rem;
-        font-family: 'Quicksand';
+        font-family: Quicksand, sans-serif;
         font-style: normal;
         font-weight: 700;
         font-size: 1.5rem;
@@ -170,11 +165,11 @@ main {
 
     &__item {
         margin: 0.375rem 0 0.625rem 3rem;
-        list-style: url(../public/images/Vector.png);
+        list-style: url("../public/images/Vector.png");
     }
 
     &__link {
-        font-family: 'Inter';
+        font-family: Inter, sans-serif;
         font-style: normal;
         font-weight: 400;
         font-size: 1rem;
@@ -187,7 +182,7 @@ main {
 }
 
 .active {
-    font-family: 'Roboto';
+    font-family: Roboto, sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 1rem;
@@ -200,25 +195,25 @@ main {
     padding: 6px 12px;
 }
 
-.product__container {
-    background: #FFFFFF;
-    box-shadow: 0px 1px 2px rgba(58, 58, 68, 0.24), 0px 2px 4px rgba(90, 91, 106, 0.24);
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 1rem;
-    margin: 0 1.5rem;
-    gap: 1rem;
-    min-width: 1114px;
-    height: auto;
-}
-
 .product {
     display: flex;
     flex-direction: column;
     max-width: 227px;
     height: 500px;
     padding: 1rem;
+
+    &__container {
+        background: #FFF;
+        box-shadow: 0 1px 2px rgba(58 58 68 / 24%), 0 2px 4px rgba(90 91 106 / 24%);
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 1rem;
+        margin: 0 1.5rem;
+        gap: 1rem;
+        min-width: 1114px;
+        height: auto;
+    }
 
     &__img {
         position: relative;
@@ -238,7 +233,7 @@ main {
     }
 
     &__title {
-        font-family: 'Inter';
+        font-family: Inter, sans-serif;
         font-style: normal;
         font-weight: 400;
         font-size: 1rem;
@@ -249,17 +244,17 @@ main {
     }
 
     &__price {
-        font-family: 'Inter';
+        font-family: Inter, sans-serif;
         font-style: normal;
         font-weight: 700;
         font-size: 1.5rem;
         line-height: 150%;
-        color: rgba(0, 0, 0, 0.87);
+        color: rgba(0 0 0 / 87%);
         margin-top: 0.5rem;
     }
 
     &__descr {
-        font-family: 'Inter';
+        font-family: Inter, sans-serif;
         font-style: normal;
         font-weight: 400;
         font-size: 0.875rem;
@@ -297,11 +292,11 @@ main {
 
     &__btn {
         align-self: flex-end;
-        background-image: url(../public/images/heart.png);
-        background-position: 5px 0px;
+        background-image: url("../public/images/heart.png");
+        background-position: 5px 0;
         background-repeat: no-repeat;
         padding: 0.3125rem 0.75rem 0.3125rem 1.875rem;
-        font-family: 'Inter';
+        font-family: Inter, sans-serif;
         font-style: normal;
         font-weight: 500;
         font-size: 0.875rem;
@@ -313,10 +308,7 @@ main {
 
 .preloader {
     position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     opacity: 0.5;
     background: #eaeaea;
     z-index: 1001;
@@ -388,8 +380,8 @@ main {
         display: flex;
         position: relative;
         align-items: center;
-        background: #FFFFFF;
-        box-shadow: 0px 1px 2px rgba(58, 58, 68, 0.24), 0px 2px 4px rgba(90, 91, 106, 0.24);
+        background: #FFF;
+        box-shadow: 0 1px 2px rgba(58 58 68 / 24%), 0 2px 4px rgba(90 91 106 / 24%);
         border-radius: 8px;
         padding: 16px;
         width: 70%;
@@ -481,6 +473,7 @@ main {
     0% {
       background-position: 100% 50%;
     }
+    
     100% {
       background-position: 0 50%;
     }
