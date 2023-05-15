@@ -43,7 +43,7 @@ img {
     &__content {
         max-width: $max-page-width;
         display: grid;
-        grid-template-columns: auto 1fr 670px 1fr;
+        grid-template-columns: auto auto 670px 1fr;
         align-items: center;
         justify-content: space-between;
         margin: 1.25rem auto;
@@ -458,6 +458,20 @@ main {
     pointer-events: all;
 }
 
+.fault {
+    position: absolute;
+    right: 38%;
+
+    h2 {
+        font-family: Quicksand, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.5rem;
+        line-height: 150%;
+        color: $main-text;
+    }
+}
+
 .none {
     display: none;
 }
@@ -467,6 +481,7 @@ main {
     background: linear-gradient(100deg, #eceff1 30%, #f6f7f8 50%, #eceff1 70%);
     background-size: 400%;
     animation: loading 1.2s ease-in-out infinite;
+    border: 0;
 }
 
 @keyframes loading {

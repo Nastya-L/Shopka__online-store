@@ -1,7 +1,8 @@
 import '../styles/styles.scss';
 
-import createRatingImg from "./rating"
-import * as endpoint from "./api_endpoints.js"
+import createRatingImg from './rating';
+import * as endpoint from './api_endpoints';
+import createFault from './fault';
 
 // Модальное окно, информация о товаре
 const modal = document.querySelector('.modal');
@@ -75,15 +76,7 @@ function createModal() {
   return modalContainer;
 }
 
-function fillModal(product) {
-  createRatingImg(product.rating.rate, modalRatingImg);
-  imgModal.src = product.image;
-  modalTitle.innerHTML = product.title;
-  modalPrice.innerHTML = `$${product.price}`;
-  modalDescr.innerHTML = product.description;
-  modalRatingNumb.innerHTML = product.rating.rate;
-  modalBtn.innerHTML = 'Add to cart';
-
+function removeLoading() {
   modalTitle.classList.remove('loading');
   modalPrice.classList.remove('loading');
   modalDescr.classList.remove('loading');
@@ -92,6 +85,17 @@ function fillModal(product) {
   modalRatingNumb.classList.remove('loading');
   modalBtn.classList.remove('loading');
   modalImg.classList.remove('loading');
+}
+
+function fillModal(product) {
+  createRatingImg(product.rating.rate, modalRatingImg);
+  imgModal.src = product.image;
+  modalTitle.innerHTML = product.title;
+  modalPrice.innerHTML = `$${product.price}`;
+  modalDescr.innerHTML = product.description;
+  modalRatingNumb.innerHTML = product.rating.rate;
+  modalBtn.innerHTML = 'Add to cart';
+  removeLoading();
 }
 
 export default function requestProduct(index) {
@@ -103,5 +107,8 @@ export default function requestProduct(index) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => setTimeout(fillModal, 1000, data)) // Чтобы показать Прелоадер
-    .catch((error) => console.log('Что-то пошло не так', error));
+    .catch(() => {
+      createFault(modal, 'Server not responding');
+      removeLoading();
+    });
 }

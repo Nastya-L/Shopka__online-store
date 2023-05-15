@@ -1,11 +1,12 @@
 import '../styles/styles.scss';
 
-import requestProduct from "./product_view.js"
-import createProduct from "./product.js"
-import * as categories from "./categories.js"
-import * as endpoint from "./api_endpoints.js"
-import * as route from "./route.js"
-import {preloaderRemove, preloaderAdd} from "./preloader.js"
+import requestProduct from './product_view';
+import createProduct from './product';
+import * as categories from './categories';
+import * as endpoint from './api_endpoints';
+import * as route from './route';
+import { preloaderRemove, preloaderAdd } from './preloader';
+import createFault from './fault';
 
 const content = document.querySelector('#products');
 
@@ -23,39 +24,46 @@ function requestProducts(url) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      while (content.hasChildNodes()) {
-        content.removeChild(content.firstChild);
+      if (data.length !== 0) {
+        while (content.hasChildNodes()) {
+          content.removeChild(content.firstChild);
+        }
+        for (let i = 0; i < data.length; i += 1) {
+          const productDiv = createProduct(data[i]);
+          content.appendChild(productDiv);
+        }
+        preloaderRemove();
+      } else {
+        createFault(content, 'Products not found');
       }
-      for (let i = 0; i < data.length; i += 1) {
-        const productDiv = createProduct(data[i]);
-        content.appendChild(productDiv);
-      }
-      preloaderRemove();
     })
-    .catch((error) => console.log('Что-то пошло не так', error));
+    .catch(() => {
+      createFault(content, 'Server not responding');
+      preloaderRemove();
+    });
 }
 
 // Категории
 const categoriesСontent = document.querySelector('.categories__content');
 
-const urlProducts = route.getRoute(window.location.hash);
-selectCategories(urlProducts);
-
-// Активная категория
-function setActiveMenuLink(el) {
-  const curentLink = categoriesСontent.querySelector('.active');
-  if (curentLink !== null) {
-    curentLink.classList.remove('active');
+// Путь на выбраную категорию
+function selectCategories(categ) {
+  let url = endpoint.certainCategory + categ;
+  if (categ === 'all' || categ === '') {
+    url = endpoint.routeProducts;
   }
-  el.classList.add('active');
+  requestProducts(url);
 }
+
+const urlProducts = route.getRoute();
+selectCategories(urlProducts);
 
 // Запрос на сервер (категории)
 fetch(endpoint.routeCatigories)
   .then((response) => response.json())
   .then((data) => {
     for (let i = 0; i < data.length; i += 1) {
-      const categoriesLi = categoriesAdd(data[i]);
+      const categoriesLi = categories.categoriesAdd(data[i]);
       categoriesСontent.appendChild(categoriesLi);
     }
     preloaderRemove();
@@ -64,7 +72,10 @@ fetch(endpoint.routeCatigories)
       categories.setActiveMenuLink(link);
     }
   })
-  .catch((error) => console.log('Что-то пошло не так', error));
+  .catch(() => {
+    createFault(content, 'Server not responding');
+    preloaderRemove();
+  });
 
 // Нажимаем на категорию
 categoriesСontent.addEventListener('click', (e) => {
@@ -76,12 +87,3 @@ categoriesСontent.addEventListener('click', (e) => {
   route.goRoute(e.target.dataset.category);
   e.preventDefault();
 });
-
-// Путь на выбраную категорию
-function selectCategories(categ) {
-  let url = endpoint.certainCategory + categ; 
-  if (categ == "all" || categ == "") {
-    url = endpoint.routeProducts; 
-  }
-  requestProducts(url);
-}
